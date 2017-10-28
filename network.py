@@ -2,18 +2,20 @@ import numpy as np
 from scipy.special import expit as sig # Sigmoid function
 
 class nnet:
-    def __init__(self,input_size,hidden_size,output_size,learn_rate,input_structure,hidden_structure,output_structure):
-        self.vi = np.random.rand(input_size, 1)  # Input vector
-        self.vn = np.random.rand(hidden_size, 1)  # Hidden layer neurons
-        self.Wi = np.random.randint(2, size=(hidden_size, input_size))  # Input layer to hidden layer weights
-        self.Wh = np.random.rand(hidden_size,hidden_size) # Hidden layer internal weights
+    def __init__(self,learn_rate,input_structure,hidden_structure,output_structure):
         self.lr = learn_rate
-        assert type(input_structure) == np.ndarray and input_structure.shape == (hidden_size,input_size)
+        assert type(input_structure) == np.ndarray
+        hidden_size = input_structure.shape[0]
+        input_size = input_structure.shape[1]
         self.Si = input_structure  # Input to hidden structure (Time independent)
         assert type(hidden_structure) == np.ndarray and hidden_structure.shape == (hidden_size,hidden_size)
         self.Sh = hidden_structure # Hidden layer structure (Time independent)
-        assert type(output_structure) == np.ndarray and output_structure.shape == (output_size,hidden_size)
+        assert type(output_structure) == np.ndarray and output_structure.shape[1] == hidden_size
         self.So = output_structure
+        self.vi = np.random.rand(input_size, 1)  # Input vector
+        self.vn = np.random.rand(hidden_size, 1)  # Hidden layer neurons
+        self.Wi = np.random.randint(2, size=(hidden_size, input_size))  # Input layer to hidden layer weights
+        self.Wh = np.random.rand(hidden_size, hidden_size)  # Hidden layer internal weights
 
     def update(self):
         "One update step of network, update outputs and weightings"
