@@ -40,7 +40,7 @@ class Parameters:
         mutate(self.output)
 
 
-def cross_arrays(arr1,arr2):
+def cross_arrays(arr1, arr2):
     """Randomly swap rows in two matrices"""
     rands = [x > CROSSOVER_RATE for x in np.random.random(arr1.shape[0])]
     for i in xrange(arr1.shape[0]):
