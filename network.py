@@ -28,7 +28,7 @@ class NeuralNet:
         # Change in neuron activity between time-steps
         dt = hidden_update - self.v_h
         # Update weights of hidden layer based on change
-        self.W_h = self.W_h + np.tanh(self.learn_rate * dt.T * dt)
+        self.W_h = self.W_h + np.tanh(self.learn_rate * np.tensordot(dt, dt))
         # Update current state
         self.v_h = hidden_update
 
@@ -47,4 +47,3 @@ class NeuralNet:
             if np.argmax(self.read_outputs()) == i[-1]:
                 score += 1.0
         return score/len(training_set)
-    
